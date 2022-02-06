@@ -6,11 +6,11 @@ import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 
 public class GuessGame {
 
-    private static GuessGame instance = new GuessGame();
+    private static final GuessGame instance = new GuessGame();
     private int score = 0;
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
-    GuessGame() {
+    private GuessGame() {
     }
 
     public static GuessGame getInstance() {
@@ -19,7 +19,7 @@ public class GuessGame {
 
     public void play() {
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 10; i++) {
             int number = Integer.parseInt(randomNumeric(1));
             System.out.print("Zgadnij cyfre: ");
             int quess = scanner.nextInt();
@@ -36,8 +36,12 @@ public class GuessGame {
 
     }
 
+    protected Object readResolve() {
+        return getInstance();
+    }
+
     public int getScore() {
-        return Integer.parseInt(randomNumeric(9));
+        return score;
     }
 
 }
